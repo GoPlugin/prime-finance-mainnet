@@ -103,6 +103,25 @@
 				"type": "uint256"
 			}
 		],
+		"name": "decimals",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"name": "jobIds",
 		"outputs": [
 			{
@@ -201,6 +220,29 @@
 			{
 				"name": "",
 				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint8"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "_agreqId",
+				"type": "uint256"
+			}
+		],
+		"name": "getDecimalForRequest",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"payable": false,

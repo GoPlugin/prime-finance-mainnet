@@ -3,11 +3,13 @@ pragma solidity ^0.4.24;
 interface IInvokeOracle {
     function requestData(address _authorizedWalletAddress,string  fromIndex) external returns (uint256 requestId);
 
-    function showPrice(uint256 _reqid) external view returns (uint256 answer, uint256 updatedOn);
+    function showPrice(uint256 _reqid) external view returns (uint256 answer, uint256 updatedOn, uint8 decimal);
+
+    function getDecimalForRequest(uint256 _reqid) external view returns(uint8 decimal);
 }
 
 contract ConsumerContract {
-    address CONTRACTADDR = 0xb0E0FF944D0C7718E1b5fE67BE9997b674d8C413;
+    address CONTRACTADDR = 0x7b28d40DBBC1699A2dD3EfAa2D86c3C7aeaa5213;
     uint256 public requestId;
     address private owner;
     mapping (uint256 => string) public priceIndexUsedInRequestID;
@@ -27,8 +29,12 @@ contract ConsumerContract {
 
     //TODO - you can customize below function as you want, but below function will give you the pricing value
     //This function will give you last stored value in the contract
-    function show(uint256 _id) external view returns (uint256, uint256) {
-        (uint256 answer, uint256 updatedOn) = IInvokeOracle(CONTRACTADDR).showPrice({_reqid: _id});
-        return (answer,updatedOn);
+    function show(uint256 _id) external view returns (uint256 responseAnswer, uint256 timestamp,uint8 decimalValue) {
+        (uint256 answer, uint256 updatedOn,uint8 decimal) = IInvokeOracle(CONTRACTADDR).showPrice({_reqid: _id});
+        return (answer,updatedOn,decimal);
+    }
+
+    function getDecimal(uint256 _id) external view returns(uint8 decimalValue){
+        return IInvokeOracle(CONTRACTADDR).getDecimalForRequest({_reqid: _id});
     }
 }
